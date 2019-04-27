@@ -8,7 +8,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 3
   revisionHistoryLimit: 3
   selector:
     matchLabels:
@@ -16,6 +16,7 @@ spec:
       release: {{ .Release.Name }}
   strategy:
     blueGreen:
+      previewReplicaCount: 1
       activeService: {{ template "helm-guestbook.fullname" . }}
       previewService: {{ template "helm-guestbook.fullname" . }}-preview
   template:
